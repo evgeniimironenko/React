@@ -7,6 +7,7 @@ class SearchPanel extends Component {
 
         this.state = {
             term: '',
+            filter: '',
         }
     }
 
