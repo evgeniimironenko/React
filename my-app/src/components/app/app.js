@@ -57,7 +57,7 @@ class App extends Component {
         }))
     }
 
-    searcEmp = (items, term) => {
+    searchEmp = (items, term) => {
         if (term.length === 0) {
             return items;
         }
@@ -76,7 +76,7 @@ class App extends Component {
         const {data, term} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.searcEmp(data, term);
+        const visibleData = this.searchEmp(data, term);
 
         return (
             <div className="app">
