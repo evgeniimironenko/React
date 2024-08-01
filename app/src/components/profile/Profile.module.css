@@ -1,0 +1,37 @@
+.profile {
+  max-width: 300px;
+  background-color: #fff;
+  box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.description {
+  padding: 15px 30px;
+  text-align: center;
+}
+
+.description img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.stats {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  background-color: ghostwhite;
+}
+
+.stats li {
+  text-align: center;
+  padding: 10px 5px;
+  width: 33.3%;
+}
+
+.quantity {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}

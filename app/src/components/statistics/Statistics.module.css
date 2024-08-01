@@ -1,0 +1,33 @@
+.statistics {
+  background-color: #fff;
+  max-width: 300px;
+  box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.4);
+  margin-top: 20px;
+}
+.statistics h2 {
+  text-align: center;
+  color: black;
+  text-transform: uppercase;
+  padding-top: 20px;
+  display: block;
+}
+
+.statList {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: 10px 5px;
+  text-align: center;
+  flex: 1;
+}
+
+.percentage {
+  font-size: 20px;
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+}

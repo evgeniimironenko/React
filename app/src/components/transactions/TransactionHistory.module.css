@@ -1,0 +1,17 @@
+.table {
+  background-color: #fff;
+  max-width: 300px;
+  box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.table tr td {
+  padding: 10px;
+  text-align: center;
+}
+.table thead {
+  background-color: blanchedalmond;
+}
+.table tr th {
+  padding: 10px;
+  text-align: center;
+}
