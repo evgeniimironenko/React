@@ -1,0 +1,27 @@
+.form {
+  margin-top: 30px;
+  padding: 20px;
+  box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  max-width: 300px;
+}
+
+.form label {
+  display: block;
+}
+
+.form input {
+  height: 20px;
+  border-radius: 5px;
+  border: 1p solid black;
+  margin: 10px 0;
+}
+
+.form button {
+  display: block;
+  padding: 5px;
+  outline: none;
+  border-radius: 10px;
+  background-color: aqua;
+  border: none;
+}

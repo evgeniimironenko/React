@@ -6,9 +6,11 @@ import Users from "./components/users/Users";
 import usersData from "./components/users/data.json";
 import TransactionHistory from "./components/transactions/TransactionHistory";
 import transactions from "./components/transactions/transactions.json";
+import Contacts from "./components/contacts/Contacts";
+import Feedback from "./components/feedback/Feedback";
 function App() {
   return (
-    <>
+    <main>
       <Profile
         username={user.username}
         tag={user.tag}
@@ -20,7 +22,9 @@ function App() {
       <Statistics stats={data} />
       <Users usersData={usersData} />
       <TransactionHistory items={transactions} />
-    </>
+      <Feedback />
+      <Contacts onSubmit={(values) => console.log(values)} />
+    </main>
   );
 }
 
