@@ -1,0 +1,9 @@
+.btnList {
+  display: flex;
+}
+
+.btnList button {
+  margin: 5px;
+  padding: 5px;
+  display: block;
+}
