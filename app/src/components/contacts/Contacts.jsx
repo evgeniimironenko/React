@@ -27,12 +27,22 @@ class Contacts extends Component {
     const name = form.elements.userName.value;
     const number = form.elements.userNumber.value;
     const newContact = { id: nanoid(), name, number };
-    this.setState((prevState) => ({
-      contacts: [...prevState.contacts, newContact],
-      name: "",
-      number: "",
-    }));
-    form.reset();
+
+    const isNameExist = this.state.contacts.some(
+      (contact) => contact.name.toLowerCase() == name.toLowerCase()
+    );
+
+    if (isNameExist) {
+      alert("Name is already exist");
+      form.reset();
+    } else {
+      this.setState((prevState) => ({
+        contacts: [...prevState.contacts, newContact],
+        name: "",
+        number: "",
+      }));
+      form.reset();
+    }
   };
 
   handleChange = (e) => {
