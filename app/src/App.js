@@ -11,6 +11,7 @@ import Feedback from "./components/feedback/Feedback";
 function App() {
   return (
     <main>
+      <Contacts onSubmit={(values) => console.log(values)} />
       <Profile
         username={user.username}
         tag={user.tag}
@@ -23,7 +24,6 @@ function App() {
       <Users usersData={usersData} />
       <TransactionHistory items={transactions} />
       <Feedback />
-      <Contacts onSubmit={(values) => console.log(values)} />
     </main>
   );
 }
