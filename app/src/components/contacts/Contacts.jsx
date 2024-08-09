@@ -57,6 +57,14 @@ class Contacts extends Component {
     );
   };
 
+  handleDelete = (contactId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter(
+        (contact) => contact.id !== contactId
+      ),
+    }));
+  };
+
   render() {
     const { filter } = this.state;
     const filteredContacts = this.getFilteredContacts();
@@ -70,7 +78,10 @@ class Contacts extends Component {
         />
         <h2>Contacts</h2>
         <Filter filter={filter} handleChange={this.handleChange} />
-        <ContactList filteredContacts={filteredContacts} />
+        <ContactList
+          filteredContacts={filteredContacts}
+          handleDelete={this.handleDelete}
+        />
       </section>
     );
   }
