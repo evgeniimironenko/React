@@ -3,7 +3,7 @@ const ContactList = ({ filteredContacts, handleDelete }) => (
     {filteredContacts.map((item) => (
       <li key={item.id}>
         {item.name}: {item.number}
-        <button onClick={() => handleDelete(item.id)}>delete</button>
+        <button onClick={() => handleDelete(item.id)} >delete</button>
       </li>
     ))}
   </ul>

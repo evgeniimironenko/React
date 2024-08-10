@@ -7,12 +7,7 @@ import ContactList from "./contactList/ContactList";
 
 class Contacts extends Component {
   state = {
-    contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ],
+    contacts: [],
     filter: "",
     name: "",
     number: "",
@@ -64,6 +59,20 @@ class Contacts extends Component {
       ),
     }));
   };
+
+  componentDidMount() {
+    const localContacts = JSON.parse(localStorage.getItem("contacts"));
+    if (localContacts) {
+      this.setState({
+        contacts: localContacts,
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    const { contacts } = this.state;
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }
 
   render() {
     const { filter } = this.state;
