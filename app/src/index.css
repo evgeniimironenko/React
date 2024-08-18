@@ -31,4 +31,8 @@ img {
   height: auto;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 @import-normalize;

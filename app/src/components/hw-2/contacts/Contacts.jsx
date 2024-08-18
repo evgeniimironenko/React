@@ -1,5 +1,4 @@
 import { nanoid } from "nanoid";
-import css from "./Contacts.module.css";
 import { Component } from "react";
 import ContactForm from "./contactForm/ContactForm";
 import Filter from "./filter/Filter";
