@@ -15,22 +15,21 @@ class Gallery extends Component {
     page: 1,
     total: 0,
     showModal: false,
-    imageUrl: "",
-    alt: "",
+    modalImage: {
+      url: "",
+      alt: "",
+    },
   };
 
-  fetchImages = async (value, page) => {
+  fetchImages = async (searchValue, page) => {
     this.setState({ isLoading: true });
 
     try {
-      const response = await api.fetchData(value, page);
-      const newData = response.data.hits.filter(
-        (newItem) => !this.state.data.some((item) => item.id === newItem.id)
-      );
+      const response = await api.fetchData(searchValue, page);
+      const newData = response.data.hits;
 
       this.setState((prevState) => ({
         data: [...prevState.data, ...newData],
-        searchValue: value,
         total: response.data.total,
       }));
     } catch (error) {
@@ -44,12 +43,15 @@ class Gallery extends Component {
     evt.preventDefault();
     const inputValue = evt.target.search.value;
 
+    if (inputValue === this.state.searchValue) return;
+
     this.setState(
-      (prevState) => ({
-        data: prevState.searchValue !== inputValue ? [] : prevState.data,
+      {
+        data: [],
         searchValue: inputValue,
         page: 1,
-      }),
+        error: null,
+      },
       () => this.fetchImages(inputValue, 1)
     );
   };
@@ -61,35 +63,37 @@ class Gallery extends Component {
     );
   };
 
-  toggleModal = (imgUrl = "", alt = "") => {
+  toggleModal = (url = "", alt = "") => {
     this.setState((prevState) => ({
-      imageUrl: imgUrl,
-      alt,
+      modalImage: { url, alt },
       showModal: !prevState.showModal,
     }));
   };
 
   render() {
-    const { data, isLoading, error, total, showModal, imageUrl, alt } =
-      this.state;
+    const { data, isLoading, error, total, showModal, modalImage } = this.state;
     const isLoadMoreVisible = data.length < total;
 
     return (
       <>
         <SearchBar onSubmit={this.handleSearch} />
         {error && <p>Whoops, something went wrong: {error.message}</p>}
-        {!isLoading && data.length === 0 && (
+        {!isLoading && data.length === 0 && !error && (
           <p>Nothing found, please correct your search query</p>
         )}
+        {data.length > 0 && (
+          <ImageGallery onShowModal={this.toggleModal} data={data} />
+        )}
         {isLoading && <Loader />}
-        {!isLoading && data.length > 0 && (
-          <>
-            <ImageGallery onShowModal={this.toggleModal} data={data} />
-            {isLoadMoreVisible && <LoadMore handleClick={this.loadNextPage} />}
-          </>
+        {!isLoading && data.length !== total && (
+          <>{isLoadMoreVisible && <LoadMore handleCLick={this.loadNextPage} />}</>
         )}
         {showModal && (
-          <Modal imageUrl={imageUrl} alt={alt} closeModal={this.toggleModal} />
+          <Modal
+            imageUrl={modalImage.url}
+            alt={modalImage.alt}
+            closeModal={this.toggleModal}
+          />
         )}
       </>
     );
