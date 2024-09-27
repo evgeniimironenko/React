@@ -12,6 +12,17 @@ function Feedback() {
   const [positive, setPositive] = useState(0);
   const options = ["good", "neutral", "bad"];
 
+  useEffect(() => {
+    const newTotal = good + neutral + bad;
+    setTotal(newTotal);
+  }, [good, neutral, bad]);
+
+  useEffect(() => {
+    const newPositive = total ? Math.round((good / total) * 100) + "%" : "0%";
+    setPositive(newPositive);
+  }, [good, total]);
+
+  
   function handleFeedback(option) {
     switch (option) {
       case "good":
@@ -27,16 +38,6 @@ function Feedback() {
         return;
     }
   }
-
-  useEffect(() => {
-    const newTotal = good + neutral + bad;
-    setTotal(newTotal);
-  }, [good, neutral, bad]);
-
-  useEffect(() => {
-    const newPositive = total ? Math.round((good / total) * 100) + "%" : "0%";
-    setPositive(newPositive);
-  }, [good, total]);
 
   return (
     <section>

@@ -1,10 +1,9 @@
-import Feedback from "./components/hw-1/feedback/Feedback";
-import Gallery from "./components/hw-3/gallery/Gallery";
+import Contacts from "./components/hw-2/contacts/Contacts";
 
 function App() {
   return (
     <main>
-      <Feedback/>
+      <Contacts />
     </main>
   );
 }
