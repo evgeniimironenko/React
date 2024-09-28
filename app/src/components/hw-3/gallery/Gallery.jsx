@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, useState } from "react";
 import api from "./helpers/helpers";
 import SearchBar from "./searchbar/Searchbar";
 import Loader from "./loader/Loader";
@@ -6,98 +6,78 @@ import ImageGallery from "./imageGallery/ImageGallery";
 import LoadMore from "./button/Button";
 import Modal from "./modal/Modal";
 
-class Gallery extends Component {
-  state = {
-    data: [],
-    isLoading: false,
-    error: null,
-    searchValue: "",
-    page: 1,
-    total: 0,
-    showModal: false,
-    modalImage: {
-      url: "",
-      alt: "",
-    },
-  };
+function Gallery() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [modalImage, setModalImage] = useState({ url: "", alt: "" });
+  const isLoadMoreVisible = data.length < total;
 
-  fetchImages = async (searchValue, page) => {
-    this.setState({ isLoading: true });
+  async function fetchImages(searchValue, page) {
+    setIsLoading(true);
 
     try {
       const response = await api.fetchData(searchValue, page);
       const newData = response.data.hits;
-
-      this.setState((prevState) => ({
-        data: [...prevState.data, ...newData],
-        total: response.data.total,
-      }));
+      setData((data) => [...data, ...newData]);
+      setTotal(response.data.total);
     } catch (error) {
-      this.setState({ error });
+      setError({ error });
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
-  };
+  }
 
-  handleSearch = (evt) => {
+  function handleSearch(evt) {
     evt.preventDefault();
     const inputValue = evt.target.search.value;
 
-    if (inputValue === this.state.searchValue) return;
+    if (inputValue === searchValue) return;
 
-    this.setState(
-      {
-        data: [],
-        searchValue: inputValue,
-        page: 1,
-        error: null,
-      },
-      () => this.fetchImages(inputValue, 1)
-    );
-  };
-
-  loadNextPage = () => {
-    this.setState(
-      (prevState) => ({ page: prevState.page + 1 }),
-      () => this.fetchImages(this.state.searchValue, this.state.page)
-    );
-  };
-
-  toggleModal = (url = "", alt = "") => {
-    this.setState((prevState) => ({
-      modalImage: { url, alt },
-      showModal: !prevState.showModal,
-    }));
-  };
-
-  render() {
-    const { data, isLoading, error, total, showModal, modalImage } = this.state;
-    const isLoadMoreVisible = data.length < total;
-
-    return (
-      <>
-        <SearchBar onSubmit={this.handleSearch} />
-        {error && <p>Whoops, something went wrong: {error.message}</p>}
-        {!isLoading && data.length === 0 && !error && (
-          <p>Nothing found, please correct your search query</p>
-        )}
-        {data.length > 0 && (
-          <ImageGallery onShowModal={this.toggleModal} data={data} />
-        )}
-        {isLoading && <Loader />}
-        {!isLoading && data.length !== total && (
-          <>{isLoadMoreVisible && <LoadMore handleCLick={this.loadNextPage} />}</>
-        )}
-        {showModal && (
-          <Modal
-            imageUrl={modalImage.url}
-            alt={modalImage.alt}
-            closeModal={this.toggleModal}
-          />
-        )}
-      </>
-    );
+    setData([]);
+    setSearchValue(inputValue);
+    setPage(1);
+    setError(null);
+    fetchImages(inputValue, 1);
   }
+
+  function loadNextPage() {
+    setPage((page) => page + 1);
+    fetchImages(searchValue, page);
+  }
+
+  function toggleModal(url = "", alt = "") {
+    setModalImage({ url, alt });
+    setShowModal((showModal) => !showModal);
+  }
+
+  return (
+    <>
+      <SearchBar onSubmit={handleSearch} />
+      {error && <p>Whoops, something went wrong: {error.message}</p>}
+      {!isLoading && data.length === 0 && !error && (
+        <p>Nothing found, please correct your search query</p>
+      )}
+      {data.length > 0 && (
+        <ImageGallery onShowModal={toggleModal} data={data} />
+      )}
+      {isLoading && <Loader />}
+      {!isLoading && data.length !== total && (
+        <>{isLoadMoreVisible && <LoadMore handleCLick={loadNextPage} />}</>
+      )}
+      {showModal && (
+        <Modal
+          imageUrl={modalImage.url}
+          alt={modalImage.alt}
+          closeModal={toggleModal}
+        />
+      )}
+    </>
+  );
 }
 
 export default Gallery;

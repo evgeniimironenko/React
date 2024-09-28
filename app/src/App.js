@@ -1,9 +1,9 @@
-import Contacts from "./components/hw-2/contacts/Contacts";
+import Gallery from "./components/hw-3/gallery/Gallery";
 
 function App() {
   return (
     <main>
-      <Contacts />
+      <Gallery />
     </main>
   );
 }
