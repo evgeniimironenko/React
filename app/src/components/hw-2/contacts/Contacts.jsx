@@ -29,7 +29,7 @@ function Contacts() {
     const newContact = { id: nanoid(), name, number };
 
     const isNameExist = contacts.some(
-      (contact) => contact.name.toLowerCase() == name.toLowerCase()
+      (contact) => contact.name.toLowerCase() === name.toLowerCase()
     );
 
     if (isNameExist) {
