@@ -24,4 +24,28 @@
   border-radius: 10px;
   background-color: aqua;
   border: none;
+  cursor: pointer;
+}
+
+.list {
+  margin-top: 10px;
+}
+
+.list li {
+  margin-top: 5px;
+}
+
+.list li button {
+  margin-left: 5px;
+  padding: 5px;
+  outline: none;
+  border-radius: 10px;
+  background-color: aqua;
+  border: none;
+  cursor: pointer;
+}
+
+.form button:hover,
+.list li button:hover {
+  background-color: aquamarine;
 }

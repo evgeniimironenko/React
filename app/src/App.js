@@ -1,10 +1,14 @@
-import Gallery from "./components/hw-3/gallery/Gallery";
+import Contacts from "./components/hw-2/contacts/Contacts";
+import { Provider } from "react-redux";
+import store from "./components/hw-2/contacts/features/store.js";
 
 function App() {
   return (
-    <main>
-      <Gallery />
-    </main>
+    <Provider store={store}>
+      <main>
+        <Contacts />
+      </main>
+    </Provider>
   );
 }
 
