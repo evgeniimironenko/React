@@ -14,6 +14,7 @@ const App = () => {
         <Route path="feedback" element={<Feedback />} />
         <Route path="contacts" element={<Contacts />} />
         <Route path="gallery" element={<Gallery />} />
+        <Route path="*" element={<Home />} />
       </Route>
     </Routes>
   );
