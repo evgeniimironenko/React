@@ -12,7 +12,6 @@ const ContactForm = () => {
 
   const handleChangePhone = (e) => {
     setPhone(e.currentTarget.value);
-    console.log(phone);
   };
 
   function handleSubmit(e) {
